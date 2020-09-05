@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>4</title>
+</head>
+<body>
+	<input type="radio" name="r" value="x * x"><b>x ** 2</b>
+	<input type="radio" name="r" value="x * x * x"><b>x ** 3</b>
+	<input type="radio" name="r" value="Math.sin(x)"><b>sin(x)</b>
+	<input type="radio" name="r" value="Math.cos(x)"><b>cos(x)</b>
+	</br>
+	<script type="text/javascript">
+		var rad = document.getElementsByName('r');
+		var radValue;
+        //document.write(radValue);
+		function curve(pict_file, yexpr, x0, y0, t, n, s){
+			/* pict_file - имя графического файла 
+			yexpr - выражение с переменной х 
+			х0, у0 - координаты начала кривой 
+			t - количество точек кривой (значений переменной х) 
+			n - толщина линии 
+			s - длина штриха и паузы */
+			var x; 
+			let xstr0 = '<IMG SRC="' + pict_file + '"'  + " width='1px' height='1px'"  + 'STYLE = "position:absolute;top: ';
+			let xstr = ""; 
+			let y;
+			var i = 0, draw = true; 
+			//document.write(yexpr);
+			for(x = 0; x < t; x++) 
+			{ 
+				if (draw)
+					y = eval(yexpr) * 2;
+					xstr += xstr0 + ((y0 + y)) + '; left:' + (x0 + x) + '">';
+				if (i > s && s > 0) 
+				{ 
+					draw = !draw;
+					i = 0;
+				}
+				i++;
+			}
+			document.write(xstr);
+		}	
+		function func()
+		{
+			for (let i = 0; i < rad.length; i++)
+        	{
+        		if (rad[i].checked)
+        		radValue = rad[i].value;
+        	}
+			curve('1.jpg', radValue, 20, 20, 500, 1, 0);
+		}
+	</script>
+	<input type="button" onclick="func()" value="Нарисовать">
+</body>
+</html>
